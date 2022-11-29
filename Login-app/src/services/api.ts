@@ -22,12 +22,7 @@ async function getOptions() {
 
 function errorResponse(error: any) {
   const { response } = error;
-  let message = error;
-  if (response) {
-    const { data } = response;
-    message = data.message;
-  }
-  return new Error(message);
+  return response;
 }
 
 export async function get(url: string, headers = {}): Promise<any> {

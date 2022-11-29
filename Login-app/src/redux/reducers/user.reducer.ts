@@ -6,10 +6,11 @@ const initialState = {
     data: null,
     twoFA: '',
     validate: false,
+    error: null,
 };
 
 const userReducer: Reducer = (state = initialState, action) => {
-    const { type, data } = action;
+    const { type, data, error } = action;
     switch (type) {
         case constants.USER_ON_LOGIN_REQUESTED:
         case constants.USER_ON_GET_2FA_REQUESTED:
@@ -45,6 +46,7 @@ const userReducer: Reducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 validate: false,
+                error
             };
 
         default:

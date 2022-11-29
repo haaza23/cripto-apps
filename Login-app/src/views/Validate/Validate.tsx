@@ -8,7 +8,7 @@ import { Button, ButtonContainer, CustomForm, SignInContainer, TitleContainer, B
 const Validate: FunctionComponent<any> = (props: any) => {
     const { onValidateClick } = props;
     const [isPressed, setIsPressed] = useState(false);
-    const { validate } = useSelector((state: any) => state.user);
+    const { validate, error } = useSelector((state: any) => state.user);
 
     const onSubmit = (values: any) => {
         onValidateClick(values);
@@ -22,7 +22,7 @@ const Validate: FunctionComponent<any> = (props: any) => {
             <Form
                 onSubmit={onSubmit}
                 initialValues={{}}
-                render={({ handleSubmit,  }) => (
+                render={({ handleSubmit, }) => (
                     <CustomForm onSubmit={handleSubmit}>
                         <div>
                             <label>Token </label>
@@ -35,13 +35,23 @@ const Validate: FunctionComponent<any> = (props: any) => {
                             />
                         </div>
                         <ButtonContainer>
-                            <Button type="submit">Validate</Button>
+                            <Button
+                                type="submit"
+                                style={{ pointerEvents: error && error.status === 403 ? 'none' : 'auto',
+                                         backgroundColor: error && error.status === 403 ? '#bdbdbd' : '#23ab23',
+                                }}
+                            >
+                                Validate
+                            </Button>
                         </ButtonContainer>
                     </CustomForm>
                 )}
             />
             {isPressed && validate && <Box style={{ background: '#56e864' }}>Success</Box>}
             {isPressed && !validate && <Box style={{ background: '#e85656' }}>Failed</Box>}
+            {error && error.status === 403 &&
+                <Box style={{ background: '#e85656', marginTop: 50 }}>{error.data.error}</Box>
+            }
         </SignInContainer>
     );
 }
