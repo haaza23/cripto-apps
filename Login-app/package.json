@@ -31,6 +31,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:qa": "env-cmd -f .env.qa react-scripts start",
+    "start:production": "env-cmd -f .env.production react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -55,6 +57,7 @@
   },
   "devDependencies": {
     "@types/react-cookies": "^0.1.0",
-    "@types/styled-components": "^5.1.26"
+    "@types/styled-components": "^5.1.26",
+    "env-cmd": "^10.1.0"
   }
 }
