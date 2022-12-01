@@ -1,3 +1,4 @@
+import { NAME } from 'configs/configs';
 import React, { FunctionComponent, useState } from 'react';
 import { Form, Field } from 'react-final-form';
 import { useSelector } from 'react-redux';
@@ -17,7 +18,7 @@ const Validate: FunctionComponent<any> = (props: any) => {
     return (
         <SignInContainer>
             <TitleContainer>
-                <p>Validate</p>
+                <p>Validate - {NAME}</p>
             </TitleContainer>
             <Form
                 onSubmit={onSubmit}

@@ -7,6 +7,7 @@ const initialState = {
     twoFA: '',
     validate: false,
     error: null,
+    loginError: false,
 };
 
 const userReducer: Reducer = (state = initialState, action) => {
@@ -17,7 +18,8 @@ const userReducer: Reducer = (state = initialState, action) => {
         case constants.USER_ON_VALIDATE_REQUESTED:
             return {
                 ...state,
-                loading: true
+                loading: true,
+                loginError: false,
             };
 
         case constants.USER_ON_LOGIN_SUCCEEDED:
@@ -40,6 +42,13 @@ const userReducer: Reducer = (state = initialState, action) => {
             };
 
         case constants.USER_ON_LOGIN_FAILED:
+            return {
+                ...state,
+                loading: false,
+                loginError: true,
+                validate: false,
+                error
+            };
         case constants.USER_ON_GET_2FA_FAILED:
         case constants.USER_ON_VALIDATE_FAILED:
             return {

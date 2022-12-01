@@ -58,10 +58,10 @@ export const Button = styled.button`
 ;`
 
 export const Box = styled.div`
-  display: flex;
-  flex-direction: row;
+  width: 80%;
+  padding: 20px 5px;
   align-items: center;
-  justify-content: center;
+  text-align: center;
 
   & > p {
     margin: 0 10px 0 10px;

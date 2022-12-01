@@ -4,23 +4,18 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import { getSecret } from './services';
 
-const Codes = ({ navigation }) => {
+const Codes = ({ navigation, route }) => {
+    const { isAdded } = route.params;
     const [token, setToken] = useState({});
     const [tokens, setTokens] = useState([]);
     const [isFetched, setIsFetched] = useState(false);
     const stateRef = useRef();
 
-    useEffect(async () => {
-        const response = await getSecret()
-            .then((response) => {
-                return response
-            })
-            .catch((error) => { console.log(error) });
-        if (response) {
-            setToken(response);
-            stateRef.current = response;
+    useEffect(() => {
+        if (isAdded) {
+            onGetCodesFirstTime()
         }
-    }, []);
+    }, [isAdded]);
 
     useEffect(() => {
         if (token.tokens && !isFetched) {
@@ -82,11 +77,11 @@ const Codes = ({ navigation }) => {
         }
     }, [token]);
 
-    // Runs every 5 seconds
+    // Runs every 15 seconds
     useEffect(() => {
         const interval = setInterval(() => {
             onGetCodesFirstTime()
-        }, 5000);
+        }, 15000);
 
         return () => clearInterval(interval);
     }, [onGetCodesFirstTime]);
@@ -98,7 +93,7 @@ const Codes = ({ navigation }) => {
                 .then((response) => {
                     return response
                 })
-                .catch((error) => { console.log(error) });
+                .catch((error) => { throw (error) });
             if (response) {
                 setToken(response);
                 stateRef.current = response;

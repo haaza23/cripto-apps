@@ -12,6 +12,7 @@ const App = () => {
         <Stack.Screen
           name="Codes"
           component={Codes}
+          initialParams={{ isAdded: false }}
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Generate" component={Generate} options={{ title: '' }}/>

@@ -13,7 +13,7 @@ const Generate = ({ navigation }) => {
             pageName: name,
         }
         const response = generate(body).then((response) => { return response }).catch((error) => { console.log(error) });
-        !!response && navigation.navigate('Codes');
+        !!response && navigation.navigate('Codes', { isAdded: true });
     }
 
     return (

@@ -6,7 +6,7 @@ import { ILoginFormData } from '../views/Login/types';
 
 const LoginContainer: FunctionComponent = () => {
   const dispatch = useDispatch();
-  const { twoFA } = useSelector((state: any) => state.user);
+  const { twoFA, loginError } = useSelector((state: any) => state.user);
 
   const onLoginClick = (formData: ILoginFormData) => {
     dispatch(onLoginRequested(formData));
@@ -16,7 +16,7 @@ const LoginContainer: FunctionComponent = () => {
     dispatch(onGet2FA());
   }
 
-  return <Login onLoginClick={onLoginClick} onClickGet2FA={onClickGet2FA} twoFA={twoFA} />;
+  return <Login onLoginClick={onLoginClick} onClickGet2FA={onClickGet2FA} twoFA={twoFA} loginError={loginError} />;
 }
 
 export default LoginContainer;

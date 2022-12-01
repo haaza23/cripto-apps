@@ -9,7 +9,7 @@ const App: FunctionComponent = () => {
     <>
       <HistoryRoute history={history}>
         <Routes>
-          <Route path="/login" element={<LoginContainer />} />
+          <Route path="/" element={<LoginContainer />} />
           <Route path="/validate" element={<ValidateContainer />} />
         </Routes>
       </HistoryRoute>
