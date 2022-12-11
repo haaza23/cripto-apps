@@ -12,10 +12,12 @@ const Codes = ({ navigation, route }) => {
     const stateRef = useRef();
 
     useEffect(() => {
-        if (isAdded) {
-            onGetCodesFirstTime()
-        }
-    }, [isAdded]);
+        const unsubscribe = navigation.addListener('focus', () => {
+            onGetCodesAfterAdding()
+        });
+
+        return unsubscribe;
+    }, [navigation])
 
     useEffect(() => {
         if (token.tokens && !isFetched) {
@@ -77,6 +79,19 @@ const Codes = ({ navigation, route }) => {
         }
     }, [token]);
 
+    const onGetCodesAfterAdding = useCallback(async () => {
+        setIsFetched(false)
+        const response = await getSecret()
+            .then((response) => {
+                return response
+            })
+            .catch((error) => { console.log(error) });
+        if (response) {
+            setToken(response);
+            stateRef.current = response;
+        }
+    }, [token]);
+
     // Runs every 15 seconds
     useEffect(() => {
         const interval = setInterval(() => {
@@ -105,8 +120,8 @@ const Codes = ({ navigation, route }) => {
         <>
             {tokens && tokens.length ?
                 <View style={styles.container}>
-                    {tokens.map((token) => (
-                        <View style={styles.rowDiv}>
+                    {tokens.map((token, i) => (
+                        <View style={styles.rowDiv} key={i}>
                             <View style={{ flex: 1 }}>
                                 <Text style={styles.customText}>{token.name || 'FACEBOOK'}</Text>
                                 <Text style={styles.customText}>{token.token}</Text>
